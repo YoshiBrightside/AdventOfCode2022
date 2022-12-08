@@ -1,5 +1,3 @@
-from collections import deque
-
 def detect_start_of_packet(s):
     ans = -1
     cur_seq = {} # Storing the number of appearances inside our sequence
