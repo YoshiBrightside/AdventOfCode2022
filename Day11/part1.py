@@ -21,8 +21,17 @@ class Monke():
     def get_item(self, item):
         self.items.append(item)
 
-    def throw_item(self):
-        item = self.items.popleft()
+    def throw_item(self, target_monke):
+        target_monke.get_item(self.items.popleft())
+
+    def inspect_item(self):
+        item = self._lambda(self.items.popleft())
+        item /
+
+    def throw_items(self):
+        while self.items:
+            item = self.items.popleft()
+            item = self._lambda(item)
         item
         pass
 
@@ -31,7 +40,7 @@ def get_monkes():
     for monke in open("Day11\input", mode='r').read().split('\n\n'):
         monke_properties = monke.split('\n')
         items = deque(map(int, monke_properties[1].split(': ')[1].split(', ')))
-        _lambda = eval('lambda new: ' + monke_properties[2].split('= ')[1])
+        _lambda = eval('lambda old: ' + monke_properties[2].split('= ')[1])
         div_num = int(monke_properties[3].split('by')[1])
         true_monke = int(monke_properties[4].split('monkey')[1])
         false_monke = int(monke_properties[5].split('monkey')[1])
