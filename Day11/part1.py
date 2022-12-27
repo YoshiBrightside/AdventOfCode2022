@@ -1,4 +1,5 @@
 from collections import deque
+import math
 
 class Monke():
     '''Monke stuff.'''
@@ -25,8 +26,8 @@ class Monke():
         target_monke.get_item(self.items.popleft())
 
     def inspect_item(self):
-        item = self._lambda(self.items.popleft())
-        item /
+        item = math.floor((self._lambda(self.items.popleft())/3))
+        return
 
     def throw_items(self):
         while self.items:
