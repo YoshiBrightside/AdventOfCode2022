@@ -27,7 +27,7 @@ class Monke():
 
     def inspect_item(self):
         item = math.floor((self._lambda(self.items.popleft())/3))
-        return
+        self.items.appendleft(item)
 
     def throw_items(self):
         while self.items:
