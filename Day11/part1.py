@@ -22,6 +22,11 @@ class Monke():
     def get_item(self, item):
         self.items.append(item)
 
+    def test(self):
+        item = self.items.popleft()
+        return item % self.div_num == 0
+        
+
     def throw_item(self, target_monke):
         target_monke.get_item(self.items.popleft())
 
@@ -31,9 +36,9 @@ class Monke():
 
     def throw_items(self):
         while self.items:
-            item = self.items.popleft()
-            item = self._lambda(item)
-        item
+            self.inspect_item()
+            target_monke = self.get_target_monke()
+            self.throw_item(target_monke)
         pass
 
 def get_monkes():
