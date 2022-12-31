@@ -1,4 +1,5 @@
 from collections import deque
+import heapq
 import math
 
 class Monke():
@@ -20,6 +21,9 @@ class Monke():
                     + ', if false throw to monke ' + str(self.false_monke)
                     + ', items thrown ' + str(self.items_thrown) + ')')
 
+    def __lt__(self, other):
+        return self.items_thrown <= other.items_thrown
+
     def get_item(self, item):
         '''Appeds item to monke.'''
         self.items.append(item)
@@ -36,7 +40,7 @@ class Monke():
     def inspect_item(self):
         '''Inspects first element, increasing worry levels, then
         dividing it by three and returning the floor.'''
-        item = math.floor((self._lambda(self.items.popleft())/3))
+        item = self._lambda(self.items.popleft())//3
         self.items.appendleft(item)
 
     def throw_items(self, monkes):
@@ -64,17 +68,18 @@ def get_monkes():
         monkes.append(Monke(items, _lambda, div_num, true_monke, false_monke))
     return monkes
 
-def get_monke_business(monkes, rounds):
-    '''prints each monke after a specific amount of rounds.'''
+def make_monke_business(monkes, rounds):
+    '''returns monkes after a specific amount of rounds.'''
     for _ in range(rounds):
         start_round(monkes)
-    for monke in monkes:
-        print(str(monke))
+    return monkes
 
 def main():
     '''prints monke business'''
-    monkes = get_monkes()
-    get_monke_business(monkes, 20)
+    monkes = make_monke_business(get_monkes(), 20)
+    heapq.heapify(monkes)
+    ans = heapq.nlargest(2, monkes)
+    print(ans[0].items_thrown * ans[1].items_thrown)
 
 if __name__ == "__main__":
     main()
