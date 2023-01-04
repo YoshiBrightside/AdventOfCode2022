@@ -2,14 +2,20 @@ class Heightmap:
 
     def __init__(self, heightmap) -> None:
         self.heightmap = heightmap
-        self.min_steps = self.get_min_steps()
+        self.start = self.find_value('S')
+        self._exit = self.find_value('E')
 
-    def get_min_steps(self):
-        for i in self.heightmap:
-            for j in self.heightmap[0]:
-                if self.min_steps[i][j] == -1
+    def find_value(self, value):
+        for i in range(len(self.heightmap)):
+            for j in range(len(self.heightmap[0])):
+                if self.heightmap == value:
+                    return i, j
+        return None
 
-def find_shortest_path():
+    def find_shortest_path(self):
+        seen = set()
+        # uses deques to do a BFS starting from E
+
     
 
 def main():
