@@ -1,3 +1,10 @@
+'''
+Part 1 of Day 12, Hill Climbing Algorithm
+https://adventofcode.com/2022/day/11
+'''
+
+from collections import deque
+
 class Heightmap:
 
     def __init__(self, heightmap) -> None:
@@ -13,7 +20,16 @@ class Heightmap:
         return None
 
     def find_shortest_path(self):
-        seen = set()
+        ans = [[-1 for  _ in range(len(self.heightmap[0]))] for _ in range(len(self.heightmap))]
+        seen = set([self._exit])
+        queue = deque([self._exit])
+        ans[self._exit[0]][self._exit[1]] = 0
+        while queue:
+            coords = queue.popleft()
+            if coords[0] != -1:
+
+            if
+        return ans
         # uses deques to do a BFS starting from E
 
     

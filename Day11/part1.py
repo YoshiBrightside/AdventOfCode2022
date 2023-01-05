@@ -1,6 +1,10 @@
+'''
+Part 1 of Day 11, monkey business
+https://adventofcode.com/2022/day/11
+'''
+
 from collections import deque
 import heapq
-import math
 
 class Monke():
     '''Monke stuff.'''
