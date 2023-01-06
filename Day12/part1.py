@@ -20,17 +20,26 @@ class Heightmap:
         return None
 
     def find_shortest_path(self):
-        ans = [[-1 for  _ in range(len(self.heightmap[0]))] for _ in range(len(self.heightmap))]
+        shortest_path = [[-1 for  _ in range(len(self.heightmap[0]))] for _ in range(len(self.heightmap))]
         seen = set([self._exit])
         queue = deque([self._exit])
-        ans[self._exit[0]][self._exit[1]] = 0
+        shortest_path[self._exit[0]][self._exit[1]] = 0
+        steps = 0
         while queue:
             coords = queue.popleft()
-            if coords[0] != -1:
+            possible_moves = ([(coords[0] + 1, coords[1]), (coords[0], coords[1] + 1),
+                               (coords[0] - 1, coords[1]), (coords[0], coords[1] - 1)])
+            for x, y in possible_moves:
+                if self.are_valid_neightbours(coords[0], coords[1], x, y):
+                    
 
-            if
         return ans
         # uses deques to do a BFS starting from E
+    
+    def are_valid_neightbours(self, x1, y1, x2, y2):
+        return (x2 > 0 and x2 < self.heightmap and
+                y2 > 0 and y1 < self.heightmap[0] and
+                abs(self.heightmap[x1][y1] - self.heightmap[x2][y2]) <= 1) # We gonna need to convert ascii to int
 
     
 
