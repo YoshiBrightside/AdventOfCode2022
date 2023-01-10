@@ -13,8 +13,8 @@ class Heightmap:
         self._exit = self.find_value('E')
 
     def find_value(self, value):
-        for i in range(len(self.heightmap)):
-            for j in range(len(self.heightmap[0])):
+        for i in enumerate(self.heightmap):
+            for j in enumerate(self.heightmap[0]):
                 if self.heightmap == value:
                     # Save coords and replace S and E with respective elevation
                     self.heightmap[i][j] = 'a' if value == 'S' else 'z'
