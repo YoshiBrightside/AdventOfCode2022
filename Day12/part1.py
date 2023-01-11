@@ -49,14 +49,17 @@ class Heightmap:
             return True
         return False
 
-    
+def get_heightmap():
+    '''Reads monkes to input and returns a double ended queue of monkes.'''
+    heightmap = []
+    for line in open("Day12\input", mode='r').read().split('\n'):
+        heightmap.append(line.split())
+    return heightmap[:-1]
+
 
 def main():
-    '''prints monke business'''
-    monkes = make_monke_business(get_monkes(), 20)
-    heapq.heapify(monkes)
-    ans = heapq.nlargest(2, monkes)
-    print(ans[0].items_thrown * ans[1].items_thrown)
+    print(get_heightmap())
+
 
 if __name__ == "__main__":
     main()
