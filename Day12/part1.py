@@ -15,7 +15,6 @@ class Heightmap:
     def find_value(self, value):
         for i, _ in enumerate(self.heightmap):
             for j, _ in enumerate(self.heightmap[0]):
-                print(i, j)
                 if self.heightmap[i][j] == value:
                     # Save coords and replace S and E with respective elevation
                     self.heightmap[i][j] = 'a' if value == 'S' else 'z'
@@ -54,7 +53,7 @@ def get_heightmap():
     '''Reads monkes to input and returns a double ended queue of monkes.'''
     heightmap = []
     for line in open("Day12\input", mode='r').read().split('\n'):
-        heightmap.append(line.split())
+        heightmap.append([*line])
     return heightmap[:-1]
 
 
