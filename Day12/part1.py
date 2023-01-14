@@ -59,8 +59,9 @@ def get_heightmap():
 
 def main():
     heightmap = Heightmap(get_heightmap())
+    shortest_path = heightmap.find_shortest_path()
     print(heightmap.heightmap, heightmap.start, heightmap._exit)
-
+    print(shortest_path)
 
 if __name__ == "__main__":
     main()
