@@ -24,7 +24,7 @@ class Heightmap:
     def find_shortest_path(self):
         shortest_path = {self._exit: 0}
         queue = deque([self._exit])
-        shortest_path[self._exit[0]][self._exit[1]] = 0
+        shortest_path[(self._exit[0], self._exit[1])] = 0
         steps = 0
         next_queue = deque()
         while queue:
@@ -40,11 +40,12 @@ class Heightmap:
             if not queue:
                 queue = next_queue
                 next_queue = deque()
+                steps += 1
         return shortest_path
     
     def are_valid_neightbours(self, x1, y1, x2, y2):
-        if (x2 > 0 and x2 < self.heightmap and
-            y2 > 0 and y1 < self.heightmap[0] and
+        if (x2 > 0 and x2 < len(self.heightmap) and
+            y2 > 0 and y1 < len(self.heightmap[0]) and
             abs(ord(self.heightmap[x1][y1]) - ord(self.heightmap[x2][y2]) <= 1)):
             return True
         return False
@@ -60,8 +61,7 @@ def get_heightmap():
 def main():
     heightmap = Heightmap(get_heightmap())
     shortest_path = heightmap.find_shortest_path()
-    print(heightmap.heightmap, heightmap.start, heightmap._exit)
-    print(shortest_path)
+    print(shortest_path[heightmap.start])
 
 if __name__ == "__main__":
     main()
