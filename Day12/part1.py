@@ -44,8 +44,8 @@ class Heightmap:
         return shortest_path
     
     def are_valid_neightbours(self, x1, y1, x2, y2):
-        if (x2 > 0 and x2 < len(self.heightmap) and
-            y2 > 0 and y1 < len(self.heightmap[0]) and
+        if (x2 >= 0 and x2 < len(self.heightmap) and
+            y2 >= 0 and y2 < len(self.heightmap[0]) and
             abs(ord(self.heightmap[x1][y1]) - ord(self.heightmap[x2][y2]) <= 1)):
             return True
         return False
