@@ -13,6 +13,7 @@ class Heightmap:
         self._exit = self.find_value('E')
 
     def find_value(self, value):
+        '''Find specific value and returns its position. Also replaces with correct height.'''
         for i, _ in enumerate(self.heightmap):
             for j, _ in enumerate(self.heightmap[0]):
                 if self.heightmap[i][j] == value:
@@ -22,6 +23,7 @@ class Heightmap:
         return None
 
     def find_shortest_path(self):
+        '''Returns a dictionary containing min steps to exit of every reachable position.'''
         shortest_path = {self._exit: 0}
         queue = deque([self._exit])
         shortest_path[(self._exit[0], self._exit[1])] = 0
@@ -44,6 +46,7 @@ class Heightmap:
         return shortest_path
     
     def are_valid_neightbours(self, x1, y1, x2, y2):
+        '''Position and height validation between two different points in a heightmap.'''
         if (x2 >= 0 and x2 < len(self.heightmap) and
             y2 >= 0 and y2 < len(self.heightmap[0]) and
             abs(ord(self.heightmap[x1][y1]) - ord(self.heightmap[x2][y2]) <= 1)):
@@ -51,7 +54,7 @@ class Heightmap:
         return False
 
 def get_heightmap():
-    '''Reads monkes to input and returns a double ended queue of monkes.'''
+    '''Creates a heightmap object based on input.'''
     heightmap = []
     for line in open("Day12\input", mode='r').read().split('\n'):
         heightmap.append([*line])
@@ -59,6 +62,7 @@ def get_heightmap():
 
 
 def main():
+    '''Gets shortest path from start to finish from input.'''
     heightmap = Heightmap(get_heightmap())
     shortest_path = heightmap.find_shortest_path()
     print(shortest_path[heightmap.start])
