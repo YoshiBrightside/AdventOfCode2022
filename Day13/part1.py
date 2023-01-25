@@ -4,75 +4,6 @@ https://adventofcode.com/2022/day/11
 '''
 
 import ast
-from collections import deque
-
-class Heightmap:
-
-    def __init__(self, heightmap) -> None:
-        self.heightmap = heightmap
-        self.start = self.find_value('S')
-        self._exit = self.find_value('E')
-
-    def find_value(self, value):
-        for i, _ in enumerate(self.heightmap):
-            for j, _ in enumerate(self.heightmap[0]):
-                if self.heightmap[i][j] == value:
-                    # Save coords and replace S and E with respective elevation
-                    self.heightmap[i][j] = 'a' if value == 'S' else 'z'
-                    return i, j
-        return None
-
-    def find_path_to_exit(self):
-        shortest_path = {self._exit: 0}
-        queue = deque([self._exit])
-        shortest_path[(self._exit[0], self._exit[1])] = 0
-        steps = 0
-        next_queue = deque()
-        while queue:
-            coords = queue.popleft()
-            shortest_path[coords] = steps
-            possible_moves = ([(coords[0] + 1, coords[1]), (coords[0], coords[1] + 1),
-                               (coords[0] - 1, coords[1]), (coords[0], coords[1] - 1)])
-            for x, y in possible_moves:
-                if self.are_valid_neightbours(coords[0], coords[1], x, y):
-                    if (x, y) not in shortest_path:
-                        shortest_path[(x, y)] = -1
-                        next_queue.append((x, y))
-            if not queue:
-                queue = next_queue
-                next_queue = deque()
-                steps += 1
-        return shortest_path
-
-    def find_shortest_path_from_any_a(self):
-        shortest_path = {self._exit: 0}
-        queue = deque([self._exit])
-        shortest_path[(self._exit[0], self._exit[1])] = 0
-        steps = 0
-        next_queue = deque()
-        while queue:
-            coords = queue.popleft()
-            if self.heightmap[coords[0]][coords[1]] == 'a': return steps
-            shortest_path[coords] = steps
-            possible_moves = ([(coords[0] + 1, coords[1]), (coords[0], coords[1] + 1),
-                               (coords[0] - 1, coords[1]), (coords[0], coords[1] - 1)])
-            for x, y in possible_moves:
-                if self.are_valid_neightbours(coords[0], coords[1], x, y):
-                    if (x, y) not in shortest_path:
-                        shortest_path[(x, y)] = -1
-                        next_queue.append((x, y))
-            if not queue:
-                queue = next_queue
-                next_queue = deque()
-                steps += 1
-        return shortest_path
-    
-    def are_valid_neightbours(self, x1, y1, x2, y2):
-        if (x2 >= 0 and x2 < len(self.heightmap) and
-            y2 >= 0 and y2 < len(self.heightmap[0]) and
-            abs(ord(self.heightmap[x1][y1]) - ord(self.heightmap[x2][y2]) <= 1)):
-            return True
-        return False
 
 def get_signal():
     '''Reads signal packages and pass it as lists of list.'''
@@ -82,10 +13,33 @@ def get_signal():
             signal.append(ast.literal_eval(line))
     return signal
 
+def evaluate_packets(pckt1, pckt2):
+    for i in range(max(len(pckt1), len(pckt2))):
+        if len(pckt1) == i: return True
+        if len(pckt2) == i: return False
+        if type(pckt1[i]) == int and type(pckt2[i]) == int:
+            if pckt1[i] < pckt2[i]: return True
+            if pckt1[i] > pckt2[i]: return False
+        if type(pckt1[i]) == list or type(pckt2[i]) == list:
+            if type(pckt1[i]) != list: pckt1[i] = [pckt1[i]]
+            if type(pckt2[i]) != list: pckt2[i] = [pckt2[i]]
+            ans = evaluate_packets(pckt1[i], pckt2[i])
+            if ans is not None: return ans
+    return None
+
+def correct_pairs_indices(signal):
+    ans = []
+    for i in range(0, len(signal), 2):
+        pckt1, pckt2 = signal[i], signal[i+1]
+        if evaluate_packets(pckt1, pckt2):
+            ans += [i//2+1]
+    return ans
+
+
 def main():
     signal = get_signal()
-    for packets in signal:
-        print(packets)
+    ans = correct_pairs_indices(signal)
+    print(sum(ans))
 
 if __name__ == "__main__":
     main()
