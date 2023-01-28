@@ -1,5 +1,5 @@
 '''
-Part 1 of Day 12, Hill Climbing Algorithm
+Part 2 of Day 12, Hill Climbing Algorithm
 https://adventofcode.com/2022/day/11
 '''
 
