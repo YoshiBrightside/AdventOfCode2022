@@ -42,15 +42,18 @@ def create_matrix(structures, min_max_coords):
     9 #########.
     '''
     left_x, right_x, bot_y, top_y = min_max_coords
-    matrix = [[0 for _ in range(right_x - left_x)] for _ in range(top_y - bot_y)]
+    matrix = [[0 for _ in range(right_x - left_x)] for _ in range(bot_y - top_y)]
+    for m in matrix:
+        print(m)
     for structure in structures:
         for i in range(len(structure) - 2):
+            print(i, structure[i], structure[i+1])
             if structure[i][0] == structure[i+1][0]:
-                for i in range(structure[i][1], structure[i+1][1]+1):
-                    matrix[structure[i][0] - left_x][bot_y + i] = 1
+                for j in range(min(structure[i][1], structure[i+1][1]), max(structure[i][1], structure[i+1][1])+1):
+                    matrix[structure[i][0] - left_x][structure[i][1] + j] = 1
             else:
-                for i in range(structure[i][0], structure[i+1][0]+1):
-                    matrix[left_x + i][structure[i][1] - top_y] = 1
+                for j in range(min(structure[i][0], structure[i+1][0]), max(structure[i][0], structure[i+1][0])+1): # 498,4 -> 498,6 -> 496,6
+                     matrix[structure[i][0] - left_x + j][structure[i][1]] = 1
     return matrix
 
 def get_min_max_coords(structures):
@@ -59,7 +62,7 @@ def get_min_max_coords(structures):
     It is important to note that the y axis is inverted a.k.a. 0 is above 1.
     For a better example, see create_matrix example.
     '''
-    left_x, right_x, bot_y, top_y = math.inf, -math.inf, -math.inf, math.inf
+    left_x, right_x, bot_y, top_y = math.inf, -math.inf, -math.inf, 0
     for structure in structures:
         for coords in structure:
             left_x = min(left_x, coords[0])
