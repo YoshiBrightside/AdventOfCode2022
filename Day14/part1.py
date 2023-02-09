@@ -52,7 +52,7 @@ def create_matrix(structures, min_max_coords):
                 for j in range(min(structure[i][1], structure[i+1][1]), max(structure[i][1], structure[i+1][1])+1):
                     matrix[structure[i][0] - left_x][structure[i][1] + j] = 1
             else:
-                for j in range(min(structure[i][0], structure[i+1][0]), max(structure[i][0], structure[i+1][0])+1): # 498,4 -> 498,6 -> 496,6
+                for j in range(min(structure[i][0], structure[i+1][0]), max(structure[i][0], structure[i+1][0])+1):
                      matrix[structure[i][0] - left_x + j][structure[i][1]] = 1
     return matrix
 
