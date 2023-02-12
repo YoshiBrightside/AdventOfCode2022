@@ -49,13 +49,16 @@ def create_matrix(structures, min_max_coords):
         for i in range(len(structure) - 2):
             print(i, structure[i], structure[i+1])
             if structure[i][0] == structure[i+1][0]:
-                for j in range(min(structure[i][1], structure[i+1][1]), max(structure[i][1], structure[i+1][1])+1):
-                    print(j, structure[i][0], structure[i][1], structure[i+1][0], structure[i+1][1])
+                point_start = min(structure[i][1], structure[i+1][1])
+                point_end = max(structure[i][1], structure[i+1][1])
+                for j in range(point_start-1, point_end):
                     matrix[structure[i][0] - left_x][max(structure[i][1], structure[i+1][1]) - min(structure[i][1], structure[i+1][1]) + j] = 1
             else:
-                for j in range(min(structure[i][0], structure[i+1][0]), max(structure[i][0], structure[i+1][0])+1): # 498,4 -> 498,6 -> 496,6
-                    print(j, structure[i][0], structure[i][1], structure[i+1][0], structure[i+1][1])
-                    matrix[max(structure[i][0], structure[i+1][0]) - left_x + j][structure[i][1]] = 1
+                point_start = min(structure[i][0], structure[i+1][0])
+                point_end = max(structure[i][0], structure[i+1][0])
+                for j in range(point_start-1, point_end): # 498,4 -> 498,6 -> 496,6
+                    print(point_start, point_end, left_x, j, j - left_x, len(matrix))
+                    matrix[j - left_x][structure[i][1]] = 1
     return matrix
 
 def get_min_max_coords(structures):
