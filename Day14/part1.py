@@ -42,22 +42,28 @@ def create_matrix(structures, min_max_coords):
     9 #########.
     '''
     left_x, right_x, bot_y, top_y = min_max_coords
-    matrix = [[0 for _ in range(right_x - left_x)] for _ in range(bot_y - top_y)]
+    matrix = [[' ' for _ in range(right_x - left_x)] for _ in range(bot_y - top_y)]
     for m in matrix:
         print(m)
+    print(len(matrix), len(matrix[0]))
     for structure in structures:
-        for i in range(len(structure) - 2):
-            # print(i, structure[i], structure[i+1])
+        print('working with structure', structure)
+        for i in range(len(structure) - 1):
+            print(i, structure[i], structure[i+1])
             if structure[i][0] == structure[i+1][0]:
                 point_start = min(structure[i][1], structure[i+1][1])
                 point_end = max(structure[i][1], structure[i+1][1])
-                for j in range(point_start-1, point_end):
+                for j in range(point_start, point_end+1):
+                    print('trying to access', j, structure[i][0] - left_x)
                     # Fill this
+                    matrix[j - 1][structure[i][0] - left_x] = '#'
             else:
                 point_start = min(structure[i][0], structure[i+1][0])
                 point_end = max(structure[i][0], structure[i+1][0])
-                for j in range(point_start-1, point_end):
+                for j in range(point_start, point_end+1):
+                    print('trying to access', structure[i][1]-1, j - left_x - 1)
                     # Fill this
+                    matrix[structure[i][1]-1][j - left_x - 1] = '#'
     return matrix
 
 def get_min_max_coords(structures):
