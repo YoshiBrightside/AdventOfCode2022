@@ -72,6 +72,26 @@ def get_min_max_coords(structures):
             top_y = min(top_y, coords[1])
     return [left_x, right_x, bot_y, top_y]
 
+def add_sand(matrix, starting_point):
+    return [-1, -1] # temp to avoid infinite loops
+    if matrix[0][starting_point] != 0:
+        return [-1, -1]
+    return 1
+
+def fill(matrix, offset = None):
+    '''
+    Fills given matrix with sand. Sand falls at point 500 without considering
+    matrix offset. Returns how many units of sand are placed before falling
+    outside the matrix.
+    '''
+    ans = 0
+    starting_point = 500 if offset is None else 500 - offset[0]
+    while add_sand(matrix, starting_point) != [-1, -1]:
+        ans += 1
+    return ans
+
+
+
 def main():
     '''Returns the sum of the indices of the pairs in the right order.'''
     structures = process_input()
@@ -79,6 +99,7 @@ def main():
     matrix = create_matrix(structures, min_max_coords)
     for line in matrix:
         print(line)
+    print(fill(matrix, offset=min_max_coords))
 
 if __name__ == "__main__":
     main()
