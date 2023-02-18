@@ -73,6 +73,11 @@ def get_min_max_coords(structures):
     return [left_x, right_x, bot_y, top_y]
 
 def add_sand(matrix, starting_point):
+    cur_pos = starting_point
+    next_pos = next_position(cur_pos)
+    while next_pos:
+        
+        cur_pos = next_position(cur_pos)
     return [-1, -1] # temp to avoid infinite loops
     if matrix[0][starting_point] != 0:
         return [-1, -1]
@@ -85,7 +90,7 @@ def fill(matrix, offset = None):
     outside the matrix.
     '''
     ans = 0
-    starting_point = 500 if offset is None else 500 - offset[0]
+    starting_point = [0, 500] if offset is None else [0, 500 - offset[0]]
     while add_sand(matrix, starting_point) != [-1, -1]:
         ans += 1
     return ans
