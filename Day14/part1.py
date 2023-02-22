@@ -76,7 +76,7 @@ def add_sand(matrix, starting_point):
     cur_pos = starting_point
     next_pos = next_position(cur_pos)
     while next_pos:
-        
+        # some stuff
         cur_pos = next_position(cur_pos)
     return [-1, -1] # temp to avoid infinite loops
     if matrix[0][starting_point] != 0:
