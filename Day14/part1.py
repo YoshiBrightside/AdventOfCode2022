@@ -72,7 +72,7 @@ def get_min_max_coords(structures):
             top_y = min(top_y, coords[1])
     return [left_x, right_x, bot_y, top_y]
 
-def next_position(cur_pos):
+def next_position(matrix, cur_pos):
     '''
     Calculates the next position a grain of sand will go. If it can't move
     anymore, returns 0.
@@ -81,9 +81,9 @@ def next_position(cur_pos):
 
 def add_sand(matrix, starting_point):
     cur_pos = starting_point
-    next_pos = next_position(cur_pos)
+    next_pos = next_position(matrix, cur_pos)
     while next_pos:
-        cur_pos = next_position(cur_pos)
+        cur_pos = next_position(matrix, cur_pos)
     return [-1, -1] # temp to avoid infinite loops
     if matrix[0][starting_point] != 0:
         return [-1, -1]
