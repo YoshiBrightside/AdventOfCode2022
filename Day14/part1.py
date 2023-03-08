@@ -82,6 +82,10 @@ def sand_move(matrix, cur_pos):
     return 0
 
 def add_sand(matrix, starting_point):
+    '''
+    Adds a grain of sand at the defined starting point on the matrix. It will
+    then proceed to fall into place.
+    '''
     cur_pos = starting_point
     next_pos = sand_move(matrix, cur_pos)
     while next_pos:
