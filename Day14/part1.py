@@ -90,7 +90,7 @@ def add_sand(matrix, starting_point):
     next_pos = sand_move(matrix, cur_pos)
     while next_pos:
         cur_pos = sand_move(matrix, cur_pos)
-    return [-1, -1] # temp to avoid infinite loops
+    return [-1, -1] # temp to avoid infinite loops lol
     if matrix[0][starting_point] != 0:
         return [-1, -1]
     return 1
