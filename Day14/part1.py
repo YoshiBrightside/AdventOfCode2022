@@ -74,12 +74,23 @@ def get_min_max_coords(structures):
 
 def sand_move(matrix, cur_pos):
     '''
-    Calculates the next position a grain of sand will go. If it can't move
-    anymore, returns 0.
+    Calculates the next position a grain of sand will go, even if that position
+    is out of the matrix. If it can't move anymore, returns 0.
     '''
-    if cur_pos[0] < len(matrix) and matrix[cur_pos[0]][cur_pos[1]] == 0:
-        return matrix[cur_pos[0]][cur_pos[1]]
-    return 0
+    if cur_pos[0] + 1 < len(matrix):
+        # Check for falling directly below
+        if matrix[cur_pos[0] + 1][cur_pos[1]] == 0:
+            return matrix[cur_pos[0] + 1][cur_pos[1]]
+        # Check for falling below to the left
+        if cur_pos[1] - 1 < 0 and matrix[cur_pos[0] + 1][cur_pos[1] - 1] == 0:
+            return matrix[cur_pos[0] + 1][cur_pos[1] - 1]
+        # Check for falling bellow to the right
+        if cur_pos[1] + 1 < len(matrix[0]) and matrix[cur_pos[0] + 1][cur_pos[1] + 1] == 0:
+            return matrix[cur_pos[0] + 1][cur_pos[1] + 1]
+        # No option possible, return 0
+        return 0
+    # Means it falls out of the matrix. Sounds really sci-fi-ish
+    return matrix[cur_pos[0] + 1][cur_pos[1]]
 
 def add_sand(matrix, starting_point):
     '''
