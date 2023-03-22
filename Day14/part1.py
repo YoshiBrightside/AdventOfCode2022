@@ -98,12 +98,10 @@ def add_sand(matrix, starting_point):
     then proceed to fall into place.
     '''
     cur_pos = starting_point
-    sand_count = 0
-    next_pos = sand_move(matrix, cur_pos)
-    while True:
-        if next_pos[0] >= len(matrix) or next_pos[1] >= len(matrix[0]):
-            return sand_count
-        cur_pos = sand_move(matrix, cur_pos)
+    nxt_pos = sand_move(matrix, cur_pos)
+    while nxt_pos and nxt_pos >= len(matrix) or nxt_pos[1] >= len(matrix[0]):
+        nxt_pos = sand_move(matrix, nxt_pos)
+    if nxt_pos[0]
     return [-1, -1] # temp to avoid infinite loops. Soon I'll come back.
     if matrix[0][starting_point] != 0:
         return [-1, -1]
