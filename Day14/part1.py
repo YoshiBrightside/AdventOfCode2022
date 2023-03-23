@@ -99,7 +99,7 @@ def add_sand(matrix, starting_point):
     '''
     cur_pos = starting_point
     nxt_pos = sand_move(matrix, cur_pos)
-    while nxt_pos and nxt_pos >= len(matrix) or nxt_pos[1] >= len(matrix[0]):
+    while nxt_pos and nxt_pos <= len(matrix) and nxt_pos[1] <= len(matrix[0]):
         nxt_pos = sand_move(matrix, nxt_pos)
     if nxt_pos[0]
     return [-1, -1] # temp to avoid infinite loops. Soon I'll come back.
