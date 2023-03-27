@@ -92,6 +92,16 @@ def sand_move(matrix, cur_pos):
     # Means it falls out of the matrix. Sounds really sci-fi-ish
     return matrix[cur_pos[0] + 1][cur_pos[1]]
 
+def is_inside_matrix(x, y, matrix):
+    '''
+    Determines wether or not a point is inside a matrix.
+    '''
+    if y < 0 or y >= len(matrix):
+        return False
+    if x < 0 or x >= len(matrix[0]):
+        return False
+    return True
+
 def add_sand(matrix, starting_point):
     '''
     Adds a grain of sand at the defined starting point on the matrix. It will
@@ -99,7 +109,7 @@ def add_sand(matrix, starting_point):
     '''
     cur_pos = starting_point
     nxt_pos = sand_move(matrix, cur_pos)
-    while nxt_pos and nxt_pos <= len(matrix) and nxt_pos[1] <= len(matrix[0]):
+    while nxt_pos and is_inside_matrix(nxt_pos, matrix):
         nxt_pos = sand_move(matrix, nxt_pos)
     if nxt_pos[0]
     return [-1, -1] # temp to avoid infinite loops. Soon I'll come back. sad.
@@ -118,8 +128,6 @@ def fill(matrix, offset = None):
     while add_sand(matrix, starting_point) != [-1, -1]:
         ans += 1
     return ans
-
-
 
 def main():
     '''Returns the sum of the indices of the pairs in the right order.'''
