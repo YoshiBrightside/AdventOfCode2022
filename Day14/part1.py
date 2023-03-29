@@ -112,7 +112,7 @@ def add_sand(matrix, starting_point):
     while nxt_pos and is_inside_matrix(nxt_pos, matrix):
         nxt_pos = sand_move(matrix, nxt_pos)
     if nxt_pos[0]
-    return [-1, -1] # temp to avoid infinite loops. Soon I'll come back. sad.
+    return [-1, -1] # temp to avoid infinite loops. Soon I'll come back.
     if matrix[0][starting_point] != 0:
         return [-1, -1]
     return 1
